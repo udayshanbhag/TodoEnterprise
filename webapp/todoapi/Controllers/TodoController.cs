@@ -22,6 +22,7 @@ namespace todoapi.Controllers
         [HttpGet]
         public IEnumerable<Todo> Get()
         {
+            _logger.LogInformation("Received GET request on /api/todo");
             var service = new TodoService();
             return service.Get().ToArray();
         }
@@ -29,11 +30,12 @@ namespace todoapi.Controllers
         [HttpPost]
         public IActionResult  Create(Todo todo)
         {
+            _logger.LogInformation("Received POST request on /api/todo");
             if (!ModelState.IsValid)
             return BadRequest("Invalid data.");
             var service = new TodoService();
             service.Create(todo);
-            
+
             return Ok();
 
         }
