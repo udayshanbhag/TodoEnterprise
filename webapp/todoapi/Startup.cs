@@ -18,6 +18,7 @@ namespace todoapi
 {
     public class Startup
     {
+
         public Startup(IConfiguration configuration)
         {
             Configuration = configuration;
@@ -37,6 +38,7 @@ namespace todoapi
                 })
             .CreateLogger();
             
+            
         }
 
         public IConfiguration Configuration { get; }
@@ -45,10 +47,12 @@ namespace todoapi
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
+            services.AddSingleton(typeof(MetricsServer));
+            services.AddSingleton(typeof(ITodoService),typeof(TodoService));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory,MetricsServer metrics)
         {
             if (env.IsDevelopment())
             {
@@ -68,6 +72,8 @@ namespace todoapi
             {
                 endpoints.MapControllers();
             });
+
+            metrics.Initialize();
         }
     }
 }

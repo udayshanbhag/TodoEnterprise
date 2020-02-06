@@ -13,30 +13,43 @@ namespace todoapi.Controllers
     {
 
         private readonly ILogger<TodoController> _logger;
+        private readonly ITodoService _todoservice;
 
-        public TodoController(ILogger<TodoController> logger)
+        public TodoController(ILogger<TodoController> logger, ITodoService todoservice)
         {
             _logger = logger;
+            _todoservice = todoservice;
         }
 
         [HttpGet]
         public IEnumerable<Todo> Get()
         {
-            _logger.LogInformation("Received GET request on /api/todo");
-            var service = new TodoService();
-            return service.Get().ToArray();
+            _logger.LogInformation("Received GET Request ");
+            TodoCounters.IncrementTodoGetRequests();
+
+            return _todoservice.Get().ToArray();
         }
 
-        [HttpPost]
-        public IActionResult  Create(Todo todo)
+        [HttpGet("{id}", Name = "GetTask")]
+        public Todo Get(int id)
         {
-            _logger.LogInformation("Received POST request on /api/todo");
-            if (!ModelState.IsValid)
-            return BadRequest("Invalid data.");
-            var service = new TodoService();
-            service.Create(todo);
+            _logger.LogInformation($"Received GET Request for {id}");
+            TodoCounters.IncrementTodoGetRequests();
 
-            return Ok();
+            return _todoservice.Get(id);
+        }
+        [HttpPost]
+        public IActionResult Create(Todo todo)
+        {
+            _logger.LogInformation("Received POST Request ");
+
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+            TodoCounters.IncrementTodoPostRequests();
+
+            _todoservice.Create(todo);
+
+            return CreatedAtRoute("GetTask", new { id = todo.Id }, todo);
 
         }
     }

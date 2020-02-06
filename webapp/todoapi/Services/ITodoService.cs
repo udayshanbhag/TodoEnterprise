@@ -8,6 +8,8 @@ namespace todoapi
     {
         public IEnumerable<Todo> Get();
 
+        public Todo Get(int id);
+
         public Todo Create(Todo todo);
 
     }

@@ -4,3 +4,4 @@ COPY bin/release/netcoreapp3.1/publish/todoapi/appsettings.json app/
 ENTRYPOINT ["dotnet", "todoapi.dll"]
 WORKDIR /app
 EXPOSE 80
+EXPOSE 5002
