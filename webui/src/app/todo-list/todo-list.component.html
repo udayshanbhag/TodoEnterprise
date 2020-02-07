@@ -1,0 +1,20 @@
+<h1 align="center">Todays</h1>
+<div fxLayout="row wrap" fxLayoutGap="32px" fxLayoutAlign="center">
+
+  <mat-card *ngFor="let todo of todos">
+    <mat-card-header>
+      <mat-card-title>{{todo.name}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <p>
+        {{todo.description}}
+      </p>
+      <p>
+        {{todo.targetDate | date:'dd-MMM '}}
+      </p>
+    </mat-card-content>
+
+  </mat-card>
+</div>
+
+<h1 align="center">Upcoming</h1>

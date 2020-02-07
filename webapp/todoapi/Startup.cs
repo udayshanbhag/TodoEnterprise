@@ -13,6 +13,7 @@ using Microsoft.Extensions.Logging;
 using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using Serilog.Formatting.Compact;
+using Microsoft.AspNetCore.Cors;
 
 namespace todoapi
 {
@@ -31,14 +32,14 @@ namespace todoapi
              .WriteTo.Elasticsearch(new ElasticsearchSinkOptions(new Uri(elasticUri))
              {
                  AutoRegisterTemplate = true,
-                    FailureCallback = e => Console.WriteLine("Unable to submit event " + e.MessageTemplate),
-                    EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
+                 FailureCallback = e => Console.WriteLine("Unable to submit event " + e.MessageTemplate),
+                 EmitEventFailure = EmitEventFailureHandling.WriteToSelfLog |
                                        EmitEventFailureHandling.WriteToFailureSink |
                                        EmitEventFailureHandling.RaiseCallback,
-                })
+             })
             .CreateLogger();
-            
-            
+
+
         }
 
         public IConfiguration Configuration { get; }
@@ -48,12 +49,15 @@ namespace todoapi
         {
             services.AddControllers();
             services.AddSingleton(typeof(MetricsServer));
-            services.AddSingleton(typeof(ITodoService),typeof(TodoService));
+            services.AddSingleton(typeof(ITodoService), typeof(TodoService));
+
+            services.AddCors();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
-        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory,MetricsServer metrics)
+        public void Configure(IApplicationBuilder app, IWebHostEnvironment env, ILoggerFactory loggerFactory, MetricsServer metrics)
         {
+            app.UseCors(builder => builder.AllowAnyOrigin().AllowAnyMethod().AllowAnyHeader());
             if (env.IsDevelopment())
             {
                 app.UseDeveloperExceptionPage();
@@ -61,7 +65,7 @@ namespace todoapi
 
             loggerFactory.AddSerilog();
             Console.WriteLine("Added Serilog factory ");
-            
+
             app.UseHttpsRedirection();
 
             app.UseRouting();
@@ -74,6 +78,8 @@ namespace todoapi
             });
 
             metrics.Initialize();
+
+
         }
     }
 }
