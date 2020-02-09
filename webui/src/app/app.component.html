@@ -304,6 +304,9 @@
   />
   <span>To DO List</span>
     <div class="spacer"></div>
+    <button routerLink="/"> Home</button>
+    <button routerLink="/admin"> Admin</button>
+    <button (click)="logout()">Logout</button>
 </div>
 
 <div class="content" role="main">
@@ -322,5 +325,5 @@
 
 
 <router-outlet>
-  <app-todo-list></app-todo-list>
+
 </router-outlet>

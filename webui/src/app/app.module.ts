@@ -1,5 +1,5 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { NgModule, APP_INITIALIZER } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -9,11 +9,16 @@ import {MatListModule} from '@angular/material/list';
 import {MatCardModule} from '@angular/material/card';
 import { FlexLayoutModule } from '@angular/flex-layout';
 import { HttpClientModule } from '@angular/common/http';
+import { AdminComponent } from './admin/admin.component';
+import { AppAuthGuard } from './AppAuthGuard';
+import { KeycloakService, KeycloakAngularModule } from 'keycloak-angular';
+import { initializer } from './app-init';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TodoListComponent
+    TodoListComponent,
+    AdminComponent
   ],
   imports: [
     BrowserModule,
@@ -21,9 +26,14 @@ import { HttpClientModule } from '@angular/common/http';
     NoopAnimationsModule,
     MatListModule,
     MatCardModule,
-    FlexLayoutModule,  HttpClientModule
+    FlexLayoutModule, HttpClientModule, KeycloakAngularModule
   ],
-  providers: [],
+  providers: [{
+    provide: APP_INITIALIZER,
+    useFactory: initializer,
+    multi: true,
+    deps: [KeycloakService]
+  },AppAuthGuard  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
