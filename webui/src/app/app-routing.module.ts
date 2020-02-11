@@ -13,8 +13,8 @@ const routes: Routes = [
     data: { roles: ['admin'] }
   },
   {
-    path:'',
-    component:TodoListComponent,
+    path: '',
+    component: TodoListComponent,
     canActivate: [AppAuthGuard]
   }
 ];

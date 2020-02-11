@@ -10,12 +10,12 @@ import { AppAuthGuard } from './AppAuthGuard';
 export class AppComponent {
   title = 'webui';
 
- 
+
   constructor(private keycloakService: KeycloakService, private adminGuard: AppAuthGuard) {
   }
-  
+
   logout() {
-    console.log("logging out now");
-    this.keycloakService.logout();
+    console.log('logging out now');
+    this.keycloakService.logout(document.baseURI);
   }
 }

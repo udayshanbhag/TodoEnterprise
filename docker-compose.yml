@@ -50,6 +50,8 @@ services:
   grafana:
    image: grafana/grafana
    container_name: grafana
+   volumes:
+    - ./grafana:/etc/grafana/
    ports:
     - "3000:3000"
    networks:
@@ -64,6 +66,8 @@ services:
      POSTGRES_DB: keycloak
      POSTGRES_USER: keycloak
      POSTGRES_PASSWORD: password
+    networks:
+     - docker-network
   
   keycloak:
     image: quay.io/keycloak/keycloak:latest
@@ -83,6 +87,20 @@ services:
       - 8080:8080
     depends_on:
       - postgres
+    networks:
+     - docker-network
+  
+  webserver:
+    image: nginx:alpine
+    container_name: webserver
+    volumes:
+    - ./nginx:/etc/nginx
+    - ./webui/dist/webui:/data/webui
+    ports:
+      - "80:80"
+      - "443:443"
+    networks:
+     - docker-network
 
 networks:
   docker-network:

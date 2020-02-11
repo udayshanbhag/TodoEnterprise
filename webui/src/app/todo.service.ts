@@ -34,7 +34,7 @@ export class TodoService {
 
   constructor(private http: HttpClient) { }
 
-  todourl = 'http://localhost:5000/api/todo';
+  todourl = '/api/todo';
 
   getTodos(): Observable<Todo[]> {
     return this.http.get<Todo[]>(this.todourl);
