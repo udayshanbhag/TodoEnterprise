@@ -19,6 +19,8 @@ services:
   kibana:
    image: docker.elastic.co/kibana/kibana:7.5.1
    container_name: kibana
+   volumes:
+    - ./kibana/kibana.yml:/usr/share/kibana/config/kibana.yml
    ports:
     - "5601:5601"
    depends_on:
@@ -96,6 +98,10 @@ services:
     volumes:
     - ./nginx:/etc/nginx
     - ./webui/dist/webui:/data/webui
+    depends_on:
+     - kibana
+     - todoapi
+     - grafana
     ports:
       - "80:80"
       - "443:443"

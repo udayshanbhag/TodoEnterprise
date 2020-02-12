@@ -1,8 +1,9 @@
 
-export interface Todo {
-  name: string;
-  description: string;
+export class Todo {
   completed: boolean;
   id: number;
-  targetDate: Date;
+
+  constructor( public name, public description, public targetDate) {
+    this.completed = false;
+  }
 }

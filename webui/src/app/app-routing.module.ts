@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { AdminComponent } from './admin/admin.component';
 import { TodoListComponent } from './todo-list/todo-list.component';
 import { AppAuthGuard } from './AppAuthGuard';
+import { CreateTodoComponent } from './create-todo/create-todo.component';
 
 
 const routes: Routes = [
@@ -12,6 +13,11 @@ const routes: Routes = [
     canActivate: [AppAuthGuard],
     data: { roles: ['admin'] }
   },
+  // {
+  //   path: 'create',
+  //   component:  CreateTodoComponent,
+  //   canActivate: [AppAuthGuard],
+  // },
   {
     path: '',
     component: TodoListComponent,

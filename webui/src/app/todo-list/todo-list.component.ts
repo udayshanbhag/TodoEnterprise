@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Todo } from '../Todo';
 import { TodoService } from '../todo.service';
+import { CreateTodoComponent } from '../create-todo/create-todo.component';
+import { MatDialogRef, MatDialog } from '@angular/material';
 
 
 
@@ -13,12 +15,24 @@ import { TodoService } from '../todo.service';
 
 export class TodoListComponent implements OnInit {
 
+  dialogRef: MatDialogRef<CreateTodoComponent>;
+
   todos: Todo[];
 
-  constructor(private todoService: TodoService) { }
+  constructor(private todoService: TodoService, private dialog: MatDialog ) { }
 
   ngOnInit() {
-    this.todoService.getTodos().subscribe(data => this.todos = data);
+    this.refresh();
   }
 
+  refresh() {
+    this.todoService.getTodos().subscribe(data => this.todos = data);
+
+  }
+  onCreateClick() {
+    this.dialogRef = this.dialog.open(CreateTodoComponent);
+    this.dialogRef.afterClosed().subscribe( () =>  {
+      console.log('trigggrred dialog closed ');
+      this.refresh();} );
+  }
 }
