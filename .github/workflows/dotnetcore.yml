@@ -21,7 +21,7 @@ jobs:
       run: dotnet publish -c Release
 
   push:
-  
+    needs: build  
     runs-on: windows-latest
     if: github.event_name == 'push'
 
