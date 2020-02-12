@@ -16,3 +16,4 @@ jobs:
     - name: Build with dotnet
       working-directory: ./webapp
       run: dotnet build --configuration Release
+
