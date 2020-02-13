@@ -19,13 +19,6 @@
     <PackageReference Include="Serilog.Sinks.Console" Version="3.1.1" />
     <PackageReference Include="Serilog.Sinks.ElasticSearch" Version="8.0.1" />
   </ItemGroup>
-<ItemGroup>
-  <Content Include="todoapi/appsettings.json">
-    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-  </Content>
-  <Content Include="todoapi/appsettings.Development.json">
-    <CopyToPublishDirectory>PreserveNewest</CopyToPublishDirectory>
-  </Content>
-</ItemGroup>
+
 
 </Project>
