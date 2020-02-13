@@ -1,33 +1,41 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.Extensions.Logging;
+
 namespace todoapi 
 {
 
     class TodoService: ITodoService
     {
-        
-        private static List<Todo> _tasks = new List<Todo>
+        private readonly TodoContext _context; 
+        private readonly ILogger _logger;
+        public TodoService(TodoContext context,ILogger<TodoService> logger)
         {
-            new Todo(){Id =1,TargetDate=DateTime.Parse("02/02/2020"), Name="Rent", Description="Pay Rent ",Completed = false },
-            new Todo(){Id =2,TargetDate=DateTime.Parse("05/02/2020"), Name="Water bill", Description="Pay water bill ",Completed = true }
-        };
-
+            _context = context;           
+            _logger = logger;   
+        }
 
 
         public IEnumerable<Todo> Get()
         {
-            return _tasks;
+            if(_context.Todos.Count() == 0){
+                _logger.LogInformation("No Tasks in Database. hence return junk");
+            }
+            return _context.Todos;
         }
 
         public Todo Get(int id)
         {
-            return _tasks.Where( task => task.Id == id).SingleOrDefault();
+            return _context.Todos.Where( task => task.Id == id).SingleOrDefault();
 
         }
         public Todo Create(Todo todo)
         {
-            _tasks.Add(todo);
+
+            _context.Todos.Add(todo);
+            _context.SaveChanges();
+            
             return todo;
         }
     }

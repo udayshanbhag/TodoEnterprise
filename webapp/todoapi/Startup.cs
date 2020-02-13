@@ -50,7 +50,7 @@ namespace todoapi
         {
             services.AddControllers();
             services.AddSingleton(typeof(MetricsServer));
-            services.AddSingleton(typeof(ITodoService), typeof(TodoService));
+            services.AddScoped(typeof(ITodoService), typeof(TodoService));
 
             services.AddCors();
 
@@ -69,6 +69,7 @@ namespace todoapi
             loggerFactory.AddSerilog();
             Console.WriteLine("Added Serilog factory ");
 
+            app.UseMiddleware(typeof(ErrorHandlingMiddleware));
             app.UseHttpsRedirection();
 
             app.UseRouting();
