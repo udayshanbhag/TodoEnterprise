@@ -14,6 +14,7 @@ using Serilog;
 using Serilog.Sinks.Elasticsearch;
 using Serilog.Formatting.Compact;
 using Microsoft.AspNetCore.Cors;
+using Microsoft.EntityFrameworkCore;
 
 namespace todoapi
 {
@@ -52,6 +53,8 @@ namespace todoapi
             services.AddSingleton(typeof(ITodoService), typeof(TodoService));
 
             services.AddCors();
+
+            services.AddDbContext<TodoContext>(options => options.UseNpgsql(Configuration.GetConnectionString("DefaultConnection")));
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

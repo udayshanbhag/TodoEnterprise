@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder } from '@angular/forms';
 import { TodoService } from '../todo.service';
-import { Todo } from '../Todo'
+import { Todo } from '../Todo';
 import { MatDialogRef } from '@angular/material';
 @Component({
   selector: 'app-create-todo',
