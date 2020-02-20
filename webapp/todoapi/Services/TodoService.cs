@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using Microsoft.Extensions.Logging;
-
+using Microsoft.EntityFrameworkCore;
 namespace todoapi 
 {
 
@@ -37,6 +37,22 @@ namespace todoapi
             _context.SaveChanges();
             
             return todo;
+        }
+
+
+        public bool Update(Todo todo)
+        {
+
+            var tobeUpdated = _context.Todos.Where(item => todo.Id == item.Id );
+            if(tobeUpdated != null)
+            {
+                _context.Todos.Attach(todo);
+                _context.Entry(todo).State = EntityState.Modified;
+                _context.SaveChanges();
+                return true;
+            }
+            _logger.LogError($"Item with id {todo.Id} not found");
+            return false;
         }
     }
 }

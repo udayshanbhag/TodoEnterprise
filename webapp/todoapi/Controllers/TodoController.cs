@@ -39,6 +39,22 @@ namespace todoapi.Controllers
 
             return _todoservice.Get(id);
         }
+
+        [HttpPut]
+        public IActionResult Update(Todo todo)
+        {
+            _logger.LogInformation("Received PUT Request ");
+
+            if (!ModelState.IsValid)
+                return BadRequest("Invalid data.");
+            TodoCounters.IncrementTodoUpdateRequests();
+
+            _todoservice.Update(todo);
+
+            return Ok();
+
+        }
+
         [HttpPost]
         public IActionResult Create(Todo todo)
         {

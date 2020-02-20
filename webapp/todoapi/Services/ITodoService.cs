@@ -12,5 +12,7 @@ namespace todoapi
 
         public Todo Create(Todo todo);
 
+        public bool Update(Todo todo);
+
     }
 }

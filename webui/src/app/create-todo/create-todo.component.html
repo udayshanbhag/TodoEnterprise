@@ -1,31 +1,26 @@
-<h1 mat-dialog-title>Add Task</h1>
-<mat-dialog-content>
-  <form [formGroup]="createForm">
+<form [formGroup]="createForm">
 
-    <div fxLayout="column" fxLayoutAlign="center center">
+  <div fxLayout="column" fxLayoutAlign="center center">
 
-      <mat-form-field>
-        <input matInput placeholder="Task Name" name="name" formControlName="name" type="name" />
-      </mat-form-field>
+    <mat-form-field>
+      <input matInput placeholder="Task Name" name="name" formControlName="name" type="name" />
+    </mat-form-field>
 
-      <mat-form-field><input matInput placeholder="Task Description" name="description" formControlName="description"
-          type="name" />
-      </mat-form-field>
+    <mat-form-field><input matInput placeholder="Task Description" name="description" formControlName="description"
+        type="name" />
+    </mat-form-field>
 
-      <mat-form-field>
-        <mat-label>Choose Target date</mat-label>
-        <input matInput [matDatepicker]="picker" formControlName="targetDate">
-        <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-        <mat-datepicker #picker></mat-datepicker>
-      </mat-form-field>
+    <mat-form-field>
+      <mat-label>Choose Target date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="targetDate">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
 
-      <div>
-        <button mat-button [disabled]="!createForm.valid" (click)="onSubmit()">Submit</button>
-        <button mat-button type="">Cancel</button>
-      </div>
-
+    <div>
+      <button mat-button [disabled]="!createForm.valid" (click)="onSubmit()">Submit</button>
+      <button mat-button type="">Cancel</button>
     </div>
-  </form>
-</mat-dialog-content>
-<mat-dialog-actions>
-</mat-dialog-actions>
+
+  </div>
+</form>

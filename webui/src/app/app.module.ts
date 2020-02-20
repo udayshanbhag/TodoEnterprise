@@ -20,12 +20,14 @@ import { MatDialogModule, MatNativeDateModule, MatCheckboxModule } from '@angula
 import {MatDatepickerModule} from '@angular/material/datepicker';
 import {MatFormFieldModule} from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material';
+import { UpdateTodoComponent } from './update-todo/update-todo.component';
 @NgModule({
   declarations: [
     AppComponent,
     TodoListComponent,
     AdminComponent,
-    CreateTodoComponent
+    CreateTodoComponent,
+    UpdateTodoComponent
   ],
   imports: [
     BrowserModule,

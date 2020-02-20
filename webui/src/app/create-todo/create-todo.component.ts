@@ -18,7 +18,7 @@ export class CreateTodoComponent implements OnInit {
     id: ['']
   });
 
-  constructor(private builder: FormBuilder, private todoService: TodoService, private dialogRef: MatDialogRef<CreateTodoComponent>) { }
+  constructor(private builder: FormBuilder, private todoService: TodoService) { }
 
   ngOnInit() {
   }
@@ -31,7 +31,7 @@ export class CreateTodoComponent implements OnInit {
       this.createForm.get('description').value,
       this.createForm.get('targetDate').value
     )).subscribe({
-      next: data => { console.log(data); this.dialogRef.close(); },
+      next: data => { console.log(data);  },
       error: error => console.error('There was an error!', error)
     });
   }

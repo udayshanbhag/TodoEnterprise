@@ -1,0 +1,27 @@
+<form [formGroup]="updateForm">
+
+  <div fxLayout="column" fxLayoutAlign="center center">
+
+    <mat-form-field>
+      <input matInput placeholder="Task Name" name="name" formControlName="name" type="name" value="{{todo.name}}" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <input matInput placeholder="Task Description" name="description" formControlName="description" type="name"
+        value="{{todo.description}}" />
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Choose Target date</mat-label>
+      <input matInput [matDatepicker]="picker" formControlName="targetDate" value="{{todo.targetDate}}">
+      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+      <mat-datepicker #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div>
+      <button mat-button [disabled]="!updateForm.valid" (click)="onSubmit()">Submit</button>
+      <button mat-button type="">Cancel</button>
+    </div>
+
+  </div>
+</form>
