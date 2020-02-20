@@ -5,8 +5,6 @@ WORKDIR /app
 COPY *.csproj ./
 # Copy everything else and build
 COPY . ./
-ENV http_proxy http://185.46.212.98:10015
-ENV https_proxy http://185.46.212.98:10015
 
 RUN dotnet publish -c Release -o out
 
